@@ -5,13 +5,16 @@ import { Service } from './types/types';
 
 function App() {
   const [showForm, setShowForm] = useState(false);
-  const [services, setServices] = useState<Service[]>([]); // Explicitly set the type for state
+  const [services, setServices] = useState<Service[]>([]);
 
-  const handleServiceSubmit = (service: Service) => { // Provide type here
+  const handleServiceSubmit = (service: Service) => {
     setServices((prevServices) => [...prevServices, service]);
     setShowForm(false);
   };
-  console.log(services);
+
+  const handleRemoveService = (index: number) => {
+    setServices((prevServices) => prevServices.filter((_, idx) => idx !== index));
+  };
 
   return (
     <div>
@@ -29,7 +32,7 @@ function App() {
           onSubmit={ handleServiceSubmit }
         />
       )}
-      <ServiceList services={ services } />
+      <ServiceList services={ services } onRemoveService={ handleRemoveService } />
     </div>
   );
 }

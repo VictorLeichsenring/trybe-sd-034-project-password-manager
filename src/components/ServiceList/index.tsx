@@ -1,25 +1,15 @@
 import React from 'react';
+import { ServiceListProps } from '../../types/types';
 
-type Service = {
-  serviceName: string;
-  login: string;
-  password: string;
-  url: string;
-};
-
-type ServiceListProps = {
-  services: Service[];
-};
-
-function ServiceList({ services }: ServiceListProps) {
-  if (!services || services.length === 0) {
+function ServiceList({ services, onRemoveService }: ServiceListProps) {
+  if (services.length === 0) {
     return <p>Nenhuma senha cadastrada</p>;
   }
 
   return (
-    <div>
+    <ul>
       {services.map((service, index) => (
-        <div key={ index }>
+        <li key={ index }>
           <a href={ service.url }>{service.serviceName}</a>
           <p>
             Login:
@@ -31,9 +21,15 @@ function ServiceList({ services }: ServiceListProps) {
             {' '}
             {service.password}
           </p>
-        </div>
+          <button
+            data-testid="remove-btn"
+            onClick={ () => onRemoveService(index) }
+          >
+            Remover
+          </button>
+        </li>
       ))}
-    </div>
+    </ul>
   );
 }
 
