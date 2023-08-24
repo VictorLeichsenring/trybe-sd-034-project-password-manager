@@ -24,12 +24,31 @@ function Form({ onCancel }: FormProps) {
     /[!@#$%^&*(),.?":{}|<>]/.test(formData.password)
   );
 
+  const passwordChecks = [
+    {
+      message: 'Possuir 8 ou mais caracteres',
+      isValid: () => formData.password.length >= 8,
+    },
+    {
+      message: 'Possuir até 16 caracteres',
+      isValid: () => formData.password.length <= 16,
+    },
+    {
+      message: 'Possuir letras e números',
+      isValid: () => hasLetters && hasNumbers,
+    },
+    {
+      message: 'Possuir algum caractere especial',
+      isValid: () => hasSpecialCharacters,
+    },
+  ];
+
   const isFormValid = formData.serviceName
-  && formData.login
-  && hasLength
-  && hasNumbers
-  && hasLetters
-  && hasSpecialCharacters;
+    && formData.login
+    && hasLength
+    && hasNumbers
+    && hasLetters
+    && hasSpecialCharacters;
 
   return (
     <form>
@@ -60,6 +79,21 @@ function Form({ onCancel }: FormProps) {
           onChange={ handleInputChange }
         />
       </label>
+      <ul className="password-checklist">
+        {passwordChecks.map((check, index) => (
+          <li
+            key={ index }
+            className={
+              check.isValid()
+                ? 'valid-password-check'
+                : 'invalid-password-check'
+            }
+          >
+            {check.message}
+          </li>
+        ))}
+      </ul>
+
       <label>
         URL
         <input
