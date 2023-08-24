@@ -1,10 +1,11 @@
 import './App.css';
-// Comentário para iniciar o projeto
+import Form from './components/Form';
 
 function App() {
   return (
     <div>
       <h1>Gerenciador de senhas</h1>
+      <Form />
     </div>
   );
 }
