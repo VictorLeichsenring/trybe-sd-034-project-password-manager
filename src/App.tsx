@@ -1,4 +1,5 @@
 import './App.css';
+// Comentário para iniciar o projeto
 
 function App() {
   return (
