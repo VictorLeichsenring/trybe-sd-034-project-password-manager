@@ -1,9 +1,17 @@
-import { useState } from 'react';
-import './App.css';
+import React, { useState } from 'react';
 import Form from './components/Form';
+import ServiceList from './components/ServiceList';
+import { Service } from './types/types';
 
 function App() {
   const [showForm, setShowForm] = useState(false);
+  const [services, setServices] = useState<Service[]>([]); // Explicitly set the type for state
+
+  const handleServiceSubmit = (service: Service) => { // Provide type here
+    setServices((prevServices) => [...prevServices, service]);
+    setShowForm(false);
+  };
+  console.log(services);
 
   return (
     <div>
@@ -14,7 +22,14 @@ function App() {
           Cadastrar nova senha
         </button>
       )}
-      {showForm && <Form onCancel={ () => setShowForm(false) } />}
+
+      {showForm && (
+        <Form
+          onCancel={ () => setShowForm(false) }
+          onSubmit={ handleServiceSubmit }
+        />
+      )}
+      <ServiceList services={ services } />
     </div>
   );
 }

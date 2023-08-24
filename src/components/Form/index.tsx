@@ -1,11 +1,8 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
+import { Service, FormProps } from '../../types/types';
 
-type FormProps = {
-  onCancel: () => void;
-};
-
-function Form({ onCancel }: FormProps) {
-  const [formData, setFormData] = useState({
+function Form({ onCancel, onSubmit }: FormProps) {
+  const [formData, setFormData] = useState<Service>({
     serviceName: '',
     login: '',
     password: '',
@@ -17,12 +14,17 @@ function Form({ onCancel }: FormProps) {
     setFormData((prevData) => ({ ...prevData, [name]: value }));
   }
 
+  function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    if (isFormValid) {
+      onSubmit(formData);
+    }
+  }
+
   const hasLength = formData.password.length >= 8 && formData.password.length <= 16;
   const hasNumbers = /\d/.test(formData.password);
   const hasLetters = /[a-zA-Z]/.test(formData.password);
-  const hasSpecialCharacters = (
-    /[!@#$%^&*(),.?":{}|<>]/.test(formData.password)
-  );
+  const hasSpecialCharacters = /[!@#$%^&*(),.?":{}|<>]/.test(formData.password);
 
   const passwordChecks = [
     {
@@ -51,7 +53,7 @@ function Form({ onCancel }: FormProps) {
     && hasSpecialCharacters;
 
   return (
-    <form>
+    <form onSubmit={ handleSubmit }>
       <label>
         Nome do serviço
         <input
@@ -93,7 +95,6 @@ function Form({ onCancel }: FormProps) {
           </li>
         ))}
       </ul>
-
       <label>
         URL
         <input
