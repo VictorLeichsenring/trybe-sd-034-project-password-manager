@@ -1,12 +1,8 @@
 type FormProps = {
-  updateFormState: (state: boolean) => void;
+  onCancel: () => void;
 };
 
-function Form({ updateFormState }: FormProps) {
-  function handleButtonCancelar(event: React.FormEvent) {
-    event.preventDefault();
-    updateFormState(false);
-  }
+function Form({ onCancel }: FormProps) {
   return (
     <form>
       <label>
@@ -41,10 +37,8 @@ function Form({ updateFormState }: FormProps) {
           id=""
         />
       </label>
-      <button>Cadastrar</button>
-      <button onClick={ handleButtonCancelar }>
-        Cancelar
-      </button>
+      <button type="submit">Cadastrar</button>
+      <button type="button" onClick={ onCancel }>Cancelar</button>
     </form>
   );
 }
