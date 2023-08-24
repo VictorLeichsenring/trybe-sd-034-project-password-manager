@@ -1,7 +1,7 @@
 import React from 'react';
 import { ServiceListProps } from '../../types/types';
 
-function ServiceList({ services, onRemoveService }: ServiceListProps) {
+function ServiceList({ services, onRemoveService, hidePasswords }: ServiceListProps) {
   if (services.length === 0) {
     return <p>Nenhuma senha cadastrada</p>;
   }
@@ -19,7 +19,7 @@ function ServiceList({ services, onRemoveService }: ServiceListProps) {
           <p>
             Senha:
             {' '}
-            {service.password}
+            {hidePasswords ? '******' : service.password}
           </p>
           <button
             data-testid="remove-btn"

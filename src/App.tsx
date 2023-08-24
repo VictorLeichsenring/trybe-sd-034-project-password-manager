@@ -6,6 +6,7 @@ import { Service } from './types/types';
 function App() {
   const [showForm, setShowForm] = useState(false);
   const [services, setServices] = useState<Service[]>([]);
+  const [hidePasswords, setHidePasswords] = useState(false);
 
   const handleServiceSubmit = (service: Service) => {
     setServices((prevServices) => [...prevServices, service]);
@@ -32,7 +33,20 @@ function App() {
           onSubmit={ handleServiceSubmit }
         />
       )}
-      <ServiceList services={ services } onRemoveService={ handleRemoveService } />
+
+      <label>
+        <input
+          type="checkbox"
+          checked={ hidePasswords }
+          onChange={ () => setHidePasswords(!hidePasswords) }
+        />
+        Esconder senhas
+      </label>
+      <ServiceList
+        services={ services }
+        onRemoveService={ handleRemoveService }
+        hidePasswords={ hidePasswords }
+      />
     </div>
   );
 }

@@ -10,6 +10,7 @@ export type Service = {
 export type ServiceListProps = {
   services: Service[];
   onRemoveService: (index: number) => void;
+  hidePasswords: boolean;
 };
 
 export type FormProps = {
