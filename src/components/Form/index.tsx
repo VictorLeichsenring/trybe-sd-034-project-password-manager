@@ -1,4 +1,12 @@
-function Form() {
+type FormProps = {
+  updateFormState: (state: boolean) => void;
+};
+
+function Form({ updateFormState }: FormProps) {
+  function handleButtonCancelar(event: React.FormEvent) {
+    event.preventDefault();
+    updateFormState(false);
+  }
   return (
     <form>
       <label>
@@ -34,7 +42,9 @@ function Form() {
         />
       </label>
       <button>Cadastrar</button>
-      <button>Cancelar</button>
+      <button onClick={ handleButtonCancelar }>
+        Cancelar
+      </button>
     </form>
   );
 }
