@@ -2,6 +2,13 @@ import React, { useState } from 'react';
 import { Service, FormProps } from '../../types/types';
 
 function Form({ onCancel, onSubmit }: FormProps) {
+  const [password, setPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
+
+  const togglePasswordVisibility = () => {
+    setShowPassword((prevShow) => !prevShow);
+  };
+
   const [formData, setFormData] = useState<Service>({
     serviceName: '',
     login: '',
@@ -72,15 +79,23 @@ function Form({ onCancel, onSubmit }: FormProps) {
           onChange={ handleInputChange }
         />
       </label>
-      <label>
+      <label htmlFor="password">Senha:</label>
+      <input
+        id="password"
+        type={ showPassword ? 'text' : 'password' }
+        value={ password }
+        onChange={ (e) => setPassword(e.target.value) }
+      />
+
+      <button
+        type="button"
+        data-testid="show-hide-form-password"
+        onClick={ togglePasswordVisibility }
+      >
+        {showPassword ? 'Esconder' : 'Mostrar'}
+        {' '}
         Senha
-        <input
-          type="password"
-          name="password"
-          value={ formData.password }
-          onChange={ handleInputChange }
-        />
-      </label>
+      </button>
       <ul className="password-checklist">
         {passwordChecks.map((check, index) => (
           <li
