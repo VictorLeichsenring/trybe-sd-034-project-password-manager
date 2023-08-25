@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import Swal from 'sweetalert2';
 import { Service, FormProps } from '../../types/types';
 
 function Form({ onCancel, onSubmit }: FormProps) {
@@ -25,6 +26,12 @@ function Form({ onCancel, onSubmit }: FormProps) {
     event.preventDefault();
     if (isFormValid) {
       onSubmit(formData);
+      Swal.fire({
+        title: 'Serviço cadastrado com sucesso',
+        icon: 'success',
+        timer: 1500,
+        showConfirmButton: false,
+      });
     }
   }
 
@@ -83,8 +90,9 @@ function Form({ onCancel, onSubmit }: FormProps) {
       <input
         id="password"
         type={ showPassword ? 'text' : 'password' }
-        value={ password }
-        onChange={ (e) => setPassword(e.target.value) }
+        name="password"
+        value={ formData.password }
+        onChange={ handleInputChange }
       />
 
       <button
