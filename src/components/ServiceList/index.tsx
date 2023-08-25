@@ -12,13 +12,9 @@ function ServiceList({ services, onRemoveService, hidePasswords }: ServiceListPr
         <li key={ index }>
           <a href={ service.url }>{service.serviceName}</a>
           <p>
-            Login:
-            {' '}
             {service.login}
           </p>
           <p>
-            Senha:
-            {' '}
             {hidePasswords ? '******' : service.password}
           </p>
           <button

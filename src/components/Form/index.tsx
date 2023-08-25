@@ -87,8 +87,8 @@ function Form({ onCancel, onSubmit }: FormProps) {
             key={ index }
             className={
               check.isValid()
-                ? 'valid-password-check'
-                : 'invalid-password-check'
+                ? ('valid-password-check')
+                : ('invalid-password-check')
             }
           >
             {check.message}

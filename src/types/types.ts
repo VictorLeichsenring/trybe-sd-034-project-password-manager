@@ -1,5 +1,3 @@
-// types.ts
-
 export type Service = {
   serviceName: string;
   login: string;
